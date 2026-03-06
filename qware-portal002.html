@@ -853,12 +853,12 @@
       { id: 3, env: 'test', group: 'D系統', name: 'D系統AWS(含抽籤)', url: 'https://ticket-uat.ibon.com.tw/backend/login' },
       { id: 4, env: 'test', group: 'E系統', name: 'E系統', url: 'https://tour-uat.ibon.com.tw/login/admin?goto=/console/admin' },
       { id: 20, env: 'test', group: 'E系統', name: 'E系統(AWS)', url: 'https://order-uat.ibon.com.tw/login/admin' },
-      { id: 21, env: 'test', group: 'E系統', name: 'E-展覽', url: 'https://tour-uat.ibon.com.tw/home/exhibition' },
-      { id: 22, env: 'test', group: 'E系統', name: 'E-旅遊', url: 'https://tour-uat.ibon.com.tw/home/drama' },
       { id: 5, env: 'test', group: 'Q系統', name: 'Q系統', url: 'https://manage-uat.ibon.com.tw/system/index.asp' },
       { id: 6, env: 'test', group: '2.1G', name: '2.1G後台', url: 'https://manage-uat.ibon.com.tw/Manage/Login.aspx' },
       { id: 7, env: 'test', group: 'ibon APP', name: 'ibon 售票 APP 管理後台', url: 'https://appgroupbackend-uat.azurewebsites.net/login' },
       { id: 8, env: 'test', group: 'ibon售票', name: 'ibon售票系統', url: 'https://ticket-uat.ibon.com.tw/Web/' },
+      { id: 21, env: 'test', group: 'ibon售票', name: 'E-展覽', url: 'https://tour-uat.ibon.com.tw/home/exhibition' },
+      { id: 22, env: 'test', group: 'ibon售票', name: 'E-旅遊', url: 'https://tour-uat.ibon.com.tw/home/drama' },
       { id: 9, env: 'test', group: '空白票券', name: '空白票券管理系統', url: 'http://10.35.82.104/TicketManage/' },
       { id: 10, env: 'prod', group: 'A系統', name: 'A系統後台', url: 'http://20.78.17.220/QWARE_TICKET_BACK/UTK2101_.aspx' },
       { id: 11, env: 'prod', group: 'A系統', name: 'A系統 歷史區後台', url: 'http://20.89.176.72/QWARE_TICKET_BACK/UTK2101_.aspx' },
@@ -866,12 +866,12 @@
       { id: 13, env: 'prod', group: 'D系統', name: 'D系統AWS(含抽籤)', url: 'https://ticket.ibon.com.tw/backend/login' },
       { id: 14, env: 'prod', group: 'E系統', name: 'E系統', url: 'https://tour.ibon.com.tw/login/admin?goto=/console/event/admin' },
       { id: 23, env: 'prod', group: 'E系統', name: 'E系統(AWS)', url: 'https://order.ibon.com.tw/login/admin' },
-      { id: 24, env: 'prod', group: 'E系統', name: 'E-展覽', url: 'https://tour.ibon.com.tw/home/exhibition' },
-      { id: 25, env: 'prod', group: 'E系統', name: 'E-旅遊', url: 'https://tour.ibon.com.tw/home/drama' },
       { id: 15, env: 'prod', group: 'Q系統', name: 'Q系統', url: 'https://manage.ibon.com.tw/system/' },
       { id: 16, env: 'prod', group: '2.1G', name: '2.1G後台', url: 'https://manage.ibon.com.tw/Manage/Login.aspx' },
       { id: 17, env: 'prod', group: 'ibon APP', name: 'ibon 售票 APP 管理後台', url: 'https://appgroupbackend.azurewebsites.net/login' },
       { id: 18, env: 'prod', group: 'ibon售票', name: 'ibon售票系統', url: 'https://ticket.ibon.com.tw/Web/' },
+      { id: 24, env: 'prod', group: 'ibon售票', name: 'E-展覽', url: 'https://tour.ibon.com.tw/home/exhibition' },
+      { id: 25, env: 'prod', group: 'ibon售票', name: 'E-旅遊', url: 'https://tour.ibon.com.tw/home/drama' },
       { id: 19, env: 'prod', group: '空白票券', name: '空白票券管理系統', url: 'https://manage.ibon.com.tw/Ticketmanage/tkLogin.aspx' },
     ];
 
@@ -879,7 +879,7 @@
 
     function load() {
       try {
-        const s = localStorage.getItem('qware_items_v2');
+        const s = localStorage.getItem('qware_items_v3');
         if (s) {
           const d = JSON.parse(s);
           nextId = d.nextId || 26;
@@ -890,7 +890,7 @@
     }
 
     function save(items) {
-      localStorage.setItem('qware_items_v2', JSON.stringify({ items, nextId }));
+      localStorage.setItem('qware_items_v3', JSON.stringify({ items, nextId }));
     }
 
     let items = load();

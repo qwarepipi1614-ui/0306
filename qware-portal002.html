@@ -790,8 +790,10 @@
   <div class="topnav">
     <div class="topnav-title">🎫 Qware 售票系統入口</div>
     <div style="display:flex;gap:8px">
-      <button class="back-btn" id="back-btn" style="display:none" onclick="showMain()">← 返回</button>
+      <button class="back-btn" id="back-btn" style="display:none" onclick="showMain()">← 返回前台</button>
       <button class="manage-btn" id="manage-btn" onclick="showAdmin()">⚙ 管理系統</button>
+      <button class="manage-btn" id="logout-btn" style="display:none;background:var(--pink)"
+        onclick="logout()">登出</button>
     </div>
   </div>
 
@@ -810,7 +812,10 @@
 
   <!-- ══ ADMIN PAGE ══ -->
   <div id="admin-page">
-    <div class="admin-title">⚙ 系統管理</div>
+    <div class="admin-title" style="justify-content: space-between;">
+      <span>⚙ 系統管理</span>
+      <button class="sys-btn test" onclick="exportData()" style="font-size:13px;padding:6px 12px">產生更新碼</button>
+    </div>
 
     <!-- Add Form -->
     <div class="add-form">
@@ -982,6 +987,18 @@
         header.innerHTML = `${env === 'test' ? '🔵' : '🔴'} ${label}（${list.length} 個）`;
         sec.appendChild(header);
 
+        // -- 表頭 --
+        const listHeader = document.createElement('div');
+        listHeader.style.cssText = 'display:flex; padding:8px 18px; background:#f5f5f5; font-size:12px; font-weight:bold; color:#555; gap:10px; border-bottom:1px solid #e0e0e0;';
+        listHeader.innerHTML = `
+          <span style="width:40px;text-align:center;flex-shrink:0">環境</span>
+          <span style="min-width:150px">名稱</span>
+          <span style="flex:1">網址</span>
+          <span style="min-width:60px">群組</span>
+          <span style="width:140px;text-align:center;flex-shrink:0">操作</span>
+        `;
+        sec.appendChild(listHeader);
+
         if (!list.length) {
           sec.innerHTML += '<div class="empty-hint">尚無項目</div>';
         }
@@ -993,11 +1010,11 @@
           const item = document.createElement('div');
           item.className = 'admin-item';
           item.innerHTML = `
-        <span class="item-env ${it.env}">${it.env === 'test' ? '測試' : '正式'}</span>
+        <span class="item-env ${it.env}" style="width:40px;text-align:center;flex-shrink:0">${it.env === 'test' ? '測試' : '正式'}</span>
         <span class="item-name">${it.name}</span>
         <span class="item-url" title="${it.url}">${it.url}</span>
         <span style="font-size:12px;color:#aaa;min-width:60px">${it.group}</span>
-        <div class="item-actions">
+        <div class="item-actions" style="width:140px;justify-content:center;flex-shrink:0">
           <button class="icon-btn up" title="上移" onclick="moveItem(${it.id},-1)">↑</button>
           <button class="icon-btn down" title="下移" onclick="moveItem(${it.id},1)">↓</button>
           <button class="icon-btn edit" title="編輯" onclick="startEdit(${it.id})">✏️</button>
@@ -1098,7 +1115,44 @@
 
     // ── Navigation ──
     const ADMIN_PW = 'pipi1614';
-    let isAuthed = false;
+    let isAuthed = sessionStorage.getItem('isAuthed') === 'true';
+
+    function updateNavButtons(page) {
+      const btnManage = document.getElementById('manage-btn');
+      const btnBack = document.getElementById('back-btn');
+      const btnLogout = document.getElementById('logout-btn');
+
+      if (!isAuthed) {
+        btnManage.style.display = 'inline-block';
+        btnBack.style.display = 'none';
+        btnLogout.style.display = 'none';
+      } else {
+        btnLogout.style.display = 'inline-block';
+        if (page === 'main') {
+          btnManage.style.display = 'inline-block';
+          btnBack.style.display = 'none';
+        } else {
+          btnManage.style.display = 'none';
+          btnBack.style.display = 'inline-block';
+        }
+      }
+    }
+
+    function logout() {
+      isAuthed = false;
+      sessionStorage.removeItem('isAuthed');
+      showMain();
+      showToast('🔒 已登出系統');
+    }
+
+    function exportData() {
+      const dataStr = JSON.stringify(items, null, 2);
+      navigator.clipboard.writeText(dataStr).then(() => {
+        showToast('✅ 已複製更新碼！請直接貼到聊天室給 AI');
+      }).catch(() => {
+        prompt('無法自動複製，請手動全選複製以下內容：', dataStr);
+      });
+    }
 
     function showAdmin() {
       if (isAuthed) {
@@ -1115,6 +1169,7 @@
       const val = document.getElementById('pw-input').value;
       if (val === ADMIN_PW) {
         isAuthed = true;
+        sessionStorage.setItem('isAuthed', 'true');
         closePwModal();
         openAdminPage();
         showToast('\uD83D\uDD13 已登入管理系統');
@@ -1134,21 +1189,19 @@
     function openAdminPage() {
       document.getElementById('main-page').style.display = 'none';
       document.getElementById('admin-page').style.display = 'block';
-      document.getElementById('manage-btn').style.display = 'none';
-      document.getElementById('back-btn').style.display = 'inline-block';
       renderAdmin();
+      updateNavButtons('admin');
     }
 
     function showMain() {
       document.getElementById('main-page').style.display = 'block';
       document.getElementById('admin-page').style.display = 'none';
-      document.getElementById('manage-btn').style.display = 'inline-block';
-      document.getElementById('back-btn').style.display = 'none';
-      isAuthed = false;
+      updateNavButtons('main');
     }
 
     // ── Init ──
     renderMain();
+    showMain();
   </script>
 
   <!-- Password Modal -->

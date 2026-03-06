@@ -878,16 +878,17 @@
       { id: 24, env: 'prod', group: 'ibon售票', name: 'E-展覽', url: 'https://tour.ibon.com.tw/home/exhibition' },
       { id: 25, env: 'prod', group: 'ibon售票', name: 'E-旅遊', url: 'https://tour.ibon.com.tw/home/drama' },
       { id: 19, env: 'prod', group: '空白票券', name: '空白票券管理系統', url: 'https://manage.ibon.com.tw/Ticketmanage/tkLogin.aspx' },
+      { id: 26, env: 'test', group: 'seafood', name: '師父', url: 'https://www.seafoodandmeat.com.tw/' },
     ];
 
-    let nextId = 26;
+    let nextId = 27;
 
     function load() {
       try {
-        const s = localStorage.getItem('qware_items_v3');
+        const s = localStorage.getItem('qware_items_v4');
         if (s) {
           const d = JSON.parse(s);
-          nextId = d.nextId || 26;
+          nextId = d.nextId || 27;
           return d.items;
         }
       } catch (e) { }
@@ -895,7 +896,7 @@
     }
 
     function save(items) {
-      localStorage.setItem('qware_items_v3', JSON.stringify({ items, nextId }));
+      localStorage.setItem('qware_items_v4', JSON.stringify({ items, nextId }));
     }
 
     let items = load();

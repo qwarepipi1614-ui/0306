@@ -859,7 +859,7 @@
       { id: 4, env: 'test', group: 'E系統', name: 'E系統', url: 'https://tour-uat.ibon.com.tw/login/admin?goto=/console/admin' },
       { id: 20, env: 'test', group: 'E系統', name: 'E系統(AWS)', url: 'https://order-uat.ibon.com.tw/login/admin' },
       { id: 5, env: 'test', group: 'Q系統', name: 'Q系統', url: 'https://manage-uat.ibon.com.tw/system/index.asp' },
-      { id: 6, env: 'test', group: '2.1G', name: '2.1G後台', url: 'https://manage-uat.ibon.com.tw/Manage/Login.aspx' },
+      { id: 6, env: 'test', group: '2.1G', name: '2.1G後台', url: 'https://manage-uat.ibon.com.tw/manage/_6Meaningless@3File$9Reset%5E7Password.aspx' },
       { id: 7, env: 'test', group: 'ibon APP', name: 'ibon 售票 APP 管理後台', url: 'https://appgroupbackend-uat.azurewebsites.net/login' },
       { id: 8, env: 'test', group: 'ibon售票', name: 'ibon售票系統', url: 'https://ticket-uat.ibon.com.tw/Web/' },
       { id: 21, env: 'test', group: 'ibon售票', name: 'E-展覽', url: 'https://tour-uat.ibon.com.tw/home/exhibition' },
@@ -885,7 +885,7 @@
 
     function load() {
       try {
-        const s = localStorage.getItem('qware_items_v5');
+        const s = localStorage.getItem('qware_items_v6');
         if (s) {
           const d = JSON.parse(s);
           nextId = d.nextId || 27;
@@ -896,7 +896,7 @@
     }
 
     function save(items) {
-      localStorage.setItem('qware_items_v5', JSON.stringify({ items, nextId }));
+      localStorage.setItem('qware_items_v6', JSON.stringify({ items, nextId }));
     }
 
     let items = load();

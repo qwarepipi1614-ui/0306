@@ -885,7 +885,7 @@
 
     function load() {
       try {
-        const s = localStorage.getItem('qware_items_v4');
+        const s = localStorage.getItem('qware_items_v5');
         if (s) {
           const d = JSON.parse(s);
           nextId = d.nextId || 27;
@@ -896,7 +896,7 @@
     }
 
     function save(items) {
-      localStorage.setItem('qware_items_v4', JSON.stringify({ items, nextId }));
+      localStorage.setItem('qware_items_v5', JSON.stringify({ items, nextId }));
     }
 
     let items = load();
